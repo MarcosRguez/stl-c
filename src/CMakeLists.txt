@@ -19,10 +19,7 @@ if(H)
 		-fmax-errors=1
 		-fdiagnostics-parseable-fixits
 		-fdiagnostics-generate-patch
-		-fdiagnostics-show-template-tree
 		-fdiagnostics-text-art-charset=emoji
-		# -freflection
-		# -fno-contracts
 	)
 	target_compile_options(${PROJECT_NAME} PRIVATE
 		-Wall -Wextra -Wpedantic

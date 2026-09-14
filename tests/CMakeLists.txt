@@ -37,10 +37,7 @@ if(${BUILD_TESTING})
 			-fmax-errors=1
 			-fdiagnostics-parseable-fixits
 			-fdiagnostics-generate-patch
-			-fdiagnostics-show-template-tree
 			-fdiagnostics-text-art-charset=emoji
-			# -freflection
-			# -fno-contracts
 		)
 		if(ipo_supported AND NOT (CMAKE_BUILD_TYPE STREQUAL "Debug"))
 			set_target_properties("${PROJECT_NAME}_${TEST_NAME}" PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)

@@ -1,0 +1,52 @@
+{
+	// Use IntelliSense para saber los atributos posibles.
+	// Mantenga el puntero para ver las descripciones de los existentes atributos.
+	// Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "(gdb) Iniciar",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${command:cmake.getLaunchTargetPath}",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceRoot}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "Habilitar la impresión con sangría para gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": false
+				},
+				{
+					"description": "Establecer tipo de desensamblado en Intel",
+					"text": "-gdb-set disassembly-flavor intel",
+					"ignoreFailures": false
+				},
+				{
+					"description": "dsakflajsd",
+					"text": "add-auto-load-safe-path /usr/local/lib64/libstdc++.so.6.0.36-gdb.py",
+					"ignoreFailures": false
+				},
+				{
+					"description": "dsakflajsd",
+					"text": "python import sys; sys.path.insert(0, \"/usr/local/share/gcc-16.2.0/python\")",
+					"ignoreFailures": false
+				},
+				{
+					"description": "dsakflajsd",
+					"text": "python import libstdcxx.v6",
+					"ignoreFailures": false
+				},
+				{
+					"description": "dsakflajsd",
+					"text": "python libstdcxx.v6.register_libstdcxx_printers(None)",
+					"ignoreFailures": false
+				}
+			]
+		}
+	]
+}
