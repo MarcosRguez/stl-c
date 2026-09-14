@@ -1,0 +1,128 @@
+AccessModifierOffset: -1
+AlignAfterOpenBracket: false
+AlignConsecutiveMacros: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignEscapedNewlines: Left
+AlignOperands: Align
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: All
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakTemplateDeclarations: Yes
+BinPackArguments: true
+BinPackParameters: true
+BreakAfterJavaFieldAnnotations: true
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Custom
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+BreakStringLiterals: true
+# BreakTemplateDeclarationsStyle: Yes
+ColumnLimit: 0
+CompactNamespaces: false
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 2
+Cpp11BracedListStyle: true
+DerivePointerAlignment: false
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: Never
+FixNamespaceComments: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '<[^>\n]+>'
+    Priority:        1
+  - Regex:           '"[^"\n]+"'
+    Priority:        2
+IndentCaseLabels: true
+IndentAccessModifiers: false
+IndentGotoLabels: true
+IndentRequiresClause: false
+IndentPPDirectives: BeforeHash
+IndentWidth: 2
+IndentWrappedFunctionNames: true
+InsertBraces: true
+InsertNewlineAtEOF: false
+InsertTrailingCommas: None
+KeepEmptyLinesAtEOF: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+LambdaBodyIndentation: Signature
+Language: Cpp
+LineEnding: LF
+MaxEmptyLinesToKeep: 0
+NamespaceIndentation: None
+PPIndentWidth: -1
+# PackArguments: UseBreakAfter
+PackConstructorInitializers: Never
+# PackParameters: OnePerLine
+# Penalty...
+PointerAlignment: Left
+QualifierAlignment: Left
+# QualifierOrder: [friend, inline, static, constexpr, const, volatile, restrict, type]
+RawStringFormats:
+ReferenceAlignment: Pointer
+ReflowComments: true
+RemoveBracesLLVM: false
+# RemoveEmptyLinesInUnwrappedLines: true
+RemoveParentheses: ReturnStatement
+RemoveSemicolon: true
+RequiresClausePosition:	OwnLine
+RequiresExpressionIndentation: OuterScope
+SeparateDefinitionBlocks: Always
+ShortNamespaceLines: 0
+SkipMacroDefinitionBody: false
+SortIncludes: true
+  # Enabled: true
+  # IgnoreCase: true
+  # IgnoreExtension: false
+SortJavaStaticImport: Before
+SortUsingDeclarations: LexicographicNumeric
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+# SpaceAfterOperatorKeyword: false
+SpaceAfterTemplateKeyword: true
+SpaceAroundPointerQualifiers: Default
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+# SpaceBeforeEnumUnderlyingTypeColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeJsonColon: false
+SpaceBeforeParens: ControlStatements
+SpaceBeforeParensOptions:
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeSquareBrackets: false
+# SpaceInEmptyBraces: Never
+SpacesBeforeTrailingComments: 1
+SpacesInAngles: Never
+SpacesInContainerLiterals: false
+SpacesInLineCommentPrefix:
+  Minimum: 1
+  Maximum: -1
+SpacesInParens: Never
+SpacesInParensOptions:
+SpacesInSquareBrackets: false
+Standard: Latest
+StatementAttributeLikeMacros: []
+StatementMacros: []
+TabWidth: 2
+TableGenBreakInsideDAGArg: BreakAll
+TableGenBreakingDAGArgOperators: []
+# TemplateNames: []
+TypeNames: []
+TypenameMacros: []
+UseTab: Always
+# VariableTemplates: []
+VerilogBreakBetweenInstancePorts: false
+WhitespaceSensitiveMacros: []
+# WrapNamespaceBodyWithEmptyLines: Never

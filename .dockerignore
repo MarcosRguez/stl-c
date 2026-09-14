@@ -1,0 +1,12 @@
+.devcontainer/
+.git/
+.clang-format
+.clang-tidy
+.dockerignore
+.editorconfig
+.gitignore
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE.txt
+README.md
+VERSION.txt
