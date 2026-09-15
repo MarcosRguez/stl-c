@@ -4,7 +4,7 @@
 void caso0() {
 	auto t = 0;
 	try {
-		t = true;
+		t++;
 	}
 	assert(t == 1);
 }
@@ -13,9 +13,9 @@ void caso1() {
 	auto t = 0;
 	auto c = 0;
 	try {
-		t = true;
+		t++;
 	} catch (const auto _) {
-		c = true;
+		c++;
 	}
 	assert(t == 1);
 	assert(c == 0);
@@ -26,11 +26,11 @@ void caso2() {
 	auto c = 0;
 	auto f = 0;
 	try {
-		t = true;
+		t++;
 	} catch (const auto _) {
-		c = true;
+		c++;
 	} finally {
-		f = true;
+		f++;
 	}
 	assert(t == 1);
 	assert(c == 0);
@@ -42,15 +42,15 @@ void caso3() {
 	auto c = 0;
 	auto f = 0;
 	try {
-		t = true;
+		t++;
 		exception ex = {
 			.what = "asdf",
 		};
 		throw(ex);
 	} catch (const auto _) {
-		c = true;
+		c++;
 	} finally {
-		f = true;
+		f++;
 	}
 	assert(t == 1);
 	assert(c == 1);
@@ -62,19 +62,19 @@ void caso4() {
 	auto c = 0;
 	auto f = 0;
 	try {
-		t = true;
+		t++;
 		exception ex = {
 			.what = "asdf",
 		};
 		throw(ex);
 	} catch (const auto _) {
-		c = true;
+		c++;
 		exception ex = {
 			.what = "asdf",
 		};
 		throw(ex);
 	} finally {
-		f = true;
+		f++;
 	}
 	assert(t == 1);
 	assert(c == 1);
@@ -86,19 +86,19 @@ void caso5() {
 	auto c = 0;
 	auto f = 0;
 	try {
-		t = true;
+		t++;
 		exception ex = {
 			.what = "asdf",
 		};
 		throw(ex);
 	} catch (const auto _) {
-		c = true;
+		c++;
 		exception ex = {
 			.what = "asdf",
 		};
 		throw(ex);
 	} finally {
-		f = true;
+		f++;
 		exception ex = {
 			.what = "asdf",
 		};

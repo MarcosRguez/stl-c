@@ -16,6 +16,7 @@ typedef struct {
 	exception e;
 	bool caught;
 	estado_ctx estado;
+	bool has_finally;
 } contexto;
 typedef vector(contexto) vector_contexto;
 stack(contexto, vector) contextos;
@@ -54,18 +55,20 @@ void throw(const exception e) {
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
-bool try
-	(int a) {
-		bool cond = a == 0 && stack_top(&contextos).estado == NONE;
-		if (cond) {
-			stack_top(&contextos).estado = TRY;
-		}
-		return cond;
+bool try1(const int a, const bool pop) {
+	bool cond = a == 0 && stack_top(&contextos).estado == NONE;
+	if (cond) {
+		stack_top(&contextos).estado = TRY;
 	}
+	if (a == 2 && !pop && !stack_top(&contextos).has_finally) {
+		stack_pop(&contextos);
+	}
+	return cond;
+}
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
-bool catch (int a) {
+bool catch1(const int a) {
 	bool cond = a == 1 && stack_top(&contextos).estado == TRY && stack_top(&contextos).caught;
 	if (cond) {
 		stack_top(&contextos).estado = CATCH;
@@ -75,22 +78,30 @@ bool catch (int a) {
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
-bool finally(int _) {
-	bool cond = stack_top(&contextos).estado != FINALLY;
+bool finally1(const int a, bool* pop) {
+	bool cond = a == 2 && stack_top(&contextos).estado != FINALLY;
+	stack_top(&contextos).has_finally = true;
 	if (cond) {
 		stack_top(&contextos).estado = FINALLY;
+		stack_pop(&contextos);
+		*pop = true;
 	}
 	return cond;
 }
 #define try                                                    \
 	jmp_buf _bufo;                                               \
 	{                                                            \
-		contexto cosa = {.b = &_bufo};                             \
+		contexto cosa = {                                          \
+			.b = &_bufo,                                             \
+			.caught = false,                                         \
+			.estado = NONE,                                          \
+			.has_finally = false};                                   \
 		stack_push(&contextos, cosa);                              \
 	}                                                            \
+	auto _pop = false;                                           \
 	for (auto i = setjmp(*stack_top(&contextos).b); i <= 2; i++) \
-		if (try (i))
+		if (try1(i, _pop))
 #define catch(var) \
-	else if (catch (i))
+	else if (catch1(i))
 #define finally \
-	else if (finally(i))
+	else if (finally1(i, &_pop))

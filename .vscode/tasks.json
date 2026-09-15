@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cmake",
+			"label": "CMake: compilación",
+			"command": "build",
+			"targets": [
+				"all"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Esta tarea permite la compilación en la terminal (si se usa el proceso interno se muestra por la pestaña de salida), lo que permite visualizar la salida del compiliador con colores y sin caracteres de control. Si se marca la opción de cmake 'build task' y no se especifica una tarea de compilación por defecto (como esta), se ejecuta una recompilación limpia cada vez, lo cual no es deseado."
+		}
+	]
+}
