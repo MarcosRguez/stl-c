@@ -1,26 +1,118 @@
 #include "../src/h/exception.h"
-void g() {
-	exception ex = {
-		.what = "asdf",
-	};
-	throw(ex);
-}
-void f() {
+#include <assert.h>
+// t-0
+void caso0() {
+	auto t = 0;
 	try {
-		g();
-	} catch (const auto v) {
-		fprintf(stdout, "Excepción capturada en g, relanzando: %s\n", v->what);
-		throw(*v);
+		t = true;
 	}
+	assert(t == 1);
+}
+// tc-0
+void caso1() {
+	auto t = 0;
+	auto c = 0;
+	try {
+		t = true;
+	} catch (const auto _) {
+		c = true;
+	}
+	assert(t == 1);
+	assert(c == 0);
+}
+// tcf-0
+void caso2() {
+	auto t = 0;
+	auto c = 0;
+	auto f = 0;
+	try {
+		t = true;
+	} catch (const auto _) {
+		c = true;
+	} finally {
+		f = true;
+	}
+	assert(t == 1);
+	assert(c == 0);
+	assert(f == 1);
+}
+// tcf-1
+void caso3() {
+	auto t = 0;
+	auto c = 0;
+	auto f = 0;
+	try {
+		t = true;
+		exception ex = {
+			.what = "asdf",
+		};
+		throw(ex);
+	} catch (const auto _) {
+		c = true;
+	} finally {
+		f = true;
+	}
+	assert(t == 1);
+	assert(c == 1);
+	assert(f == 1);
+}
+// tcf-2
+void caso4() {
+	auto t = 0;
+	auto c = 0;
+	auto f = 0;
+	try {
+		t = true;
+		exception ex = {
+			.what = "asdf",
+		};
+		throw(ex);
+	} catch (const auto _) {
+		c = true;
+		exception ex = {
+			.what = "asdf",
+		};
+		throw(ex);
+	} finally {
+		f = true;
+	}
+	assert(t == 1);
+	assert(c == 1);
+	assert(f == 1);
+}
+// tcf-3
+void caso5() {
+	auto t = 0;
+	auto c = 0;
+	auto f = 0;
+	try {
+		t = true;
+		exception ex = {
+			.what = "asdf",
+		};
+		throw(ex);
+	} catch (const auto _) {
+		c = true;
+		exception ex = {
+			.what = "asdf",
+		};
+		throw(ex);
+	} finally {
+		f = true;
+		exception ex = {
+			.what = "asdf",
+		};
+		throw(ex);
+	}
+	assert(t == 1);
+	assert(c == 1);
+	assert(f == 1);
 }
 int main() {
-	fprintf(stdout, "¡Hola mundo!\n");
-	try {
-		f();
-	} catch (const auto _) {
-		fprintf(stdout, "Excepción capturada en main\n");
-	} finally {
-		fprintf(stdout, "finally\n");
-	}
-	fprintf(stdout, "¡Adiós mundo!\n");
+	caso0();
+	caso1();
+	caso2();
+	caso3();
+	// caso4();
+	// caso5();
 }
