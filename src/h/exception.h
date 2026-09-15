@@ -19,7 +19,7 @@ typedef struct {
 	bool has_finally;
 } contexto;
 typedef vector(contexto) vector_contexto;
-stack(contexto, vector) contextos;
+thread_local stack(contexto, vector) contextos;
 typedef void (*terminate_handler)();
 terminate_handler _terminate_handle = abort;
 #if __has_c_attribute(noreturn)
@@ -42,7 +42,7 @@ terminate_handler set_terminate(terminate_handler f) {
 #if __has_c_attribute(noreturn)
 [[noreturn]]
 #endif
-void throw(const exception e) {
+void throw_exception(const exception e) {
 	if (!stack_empty(&contextos)) {
 		stack_top(&contextos).e = e;
 		stack_top(&contextos).caught = true;
@@ -52,6 +52,20 @@ void throw(const exception e) {
 		terminate();
 	}
 }
+void throw_int(int _) {
+	exception e = {.what = "int"};
+	throw_exception(e);
+}
+#define throw(X) _Generic((X), \
+	int: throw_int,              \
+	exception: throw_exception)(X)
+int throw_r_int(const int x) {
+	exception e = {.what = "int"};
+	throw_exception(e);
+	return x;
+}
+#define throw_r(X) _Generic((X), \
+	int: throw_r_int)(X)
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
