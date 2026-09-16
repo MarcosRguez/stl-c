@@ -66,23 +66,32 @@ int throw_r_int(const int x) {
 }
 #define throw_r(X) _Generic((X), \
 	int: throw_r_int)(X)
+// #define throw_r(X) throw_r_##X
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
-bool try1(const int a, const bool pop) {
+bool try1(const int a, bool* const pop) {
+	if (*pop) {
+		return false;
+	}
+	if (a == 3 && !*pop && !stack_top(&contextos).has_finally) {
+		stack_pop(&contextos);
+		*pop = true;
+		return false;
+	}
 	bool cond = a == 0 && stack_top(&contextos).estado == NONE;
 	if (cond) {
 		stack_top(&contextos).estado = TRY;
-	}
-	if (a == 2 && !pop && !stack_top(&contextos).has_finally) {
-		stack_pop(&contextos);
 	}
 	return cond;
 }
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
-bool catch1(const int a) {
+bool catch1(const int a, const bool pop) {
+	if (pop) {
+		return false;
+	}
 	bool cond = a == 1 && stack_top(&contextos).estado == TRY && stack_top(&contextos).caught;
 	if (cond) {
 		stack_top(&contextos).estado = CATCH;
@@ -92,7 +101,10 @@ bool catch1(const int a) {
 #if __has_c_attribute(nodiscard)
 [[nodiscard]]
 #endif
-bool finally1(const int a, bool* pop) {
+bool finally1(const int a, bool* const pop) {
+	if (*pop) {
+		return false;
+	}
 	bool cond = a == 2 && stack_top(&contextos).estado != FINALLY;
 	stack_top(&contextos).has_finally = true;
 	if (cond) {
@@ -113,9 +125,9 @@ bool finally1(const int a, bool* pop) {
 		stack_push(&contextos, cosa);                              \
 	}                                                            \
 	auto _pop = false;                                           \
-	for (auto i = setjmp(*stack_top(&contextos).b); i <= 2; i++) \
-		if (try1(i, _pop))
+	for (auto i = setjmp(*stack_top(&contextos).b); i <= 3; i++) \
+		if (try1(i, &_pop))
 #define catch(var) \
-	else if (catch1(i))
+	else if (catch1(i, _pop))
 #define finally \
 	else if (finally1(i, &_pop))

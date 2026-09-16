@@ -1,15 +1,16 @@
 #include "exception.h"
 #include <assert.h>
+#define optional_t(T) optional_##T
+#define optional_d(T)         \
+	typedef struct {          \
+		bool _existe;           \
+		typeof_unqual(T) _data; \
+	} optional_##T
 #define optional(T)         \
-	struct {     \
+	struct optional_##T {     \
 		bool _existe;           \
 		typeof_unqual(T) _data; \
 	}
-// #define optional(T)         \
-// 	struct optional_##T {     \
-// 		bool _existe;           \
-// 		typeof_unqual(T) _data; \
-// 	}
 #define optional_has_value(this) \
 	((this)->_existe)
 #define optional_value(this) \
@@ -30,4 +31,4 @@
 			? (typeof(*(this))){._existe = true, ._data = f(optional_value(this))} \
 			: (typeof(*(this))){._existe = false})
 #define make_optional(T, value) \
-	((optional(T)){._existe = true, ._data = value})
+	((optional_t(T)){._existe = true, ._data = value})

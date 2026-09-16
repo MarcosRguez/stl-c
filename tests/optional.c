@@ -7,6 +7,7 @@ int f(int a) {
 int main(const int argc, const char* const* const argv) {
 	optional(int) a = optional_ctor;
 	// auto b = nullopt;
+	optional_d(float);
 	auto c = make_optional(float, 1.5);
 	int value = optional_value(&a);
 	optional_transform(&a, f);
