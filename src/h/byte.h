@@ -1,0 +1,1 @@
+enum byte : unsigned char {};

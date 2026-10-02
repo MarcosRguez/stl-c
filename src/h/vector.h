@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+// #include "exception.h"
+#define throw()
 // no anidar
 #define vector(T)     \
 	struct vector_##T { \
@@ -14,16 +16,27 @@
 		.tamaño = 0,    \
 		.capacidad = 0, \
 		.dato = nullptr}
-#define vector_at(this, index) ((this)->dato[index])
+#define vector_max_size(this)	 SIZE_MAX
 #define vector_capacity(this)	 ((this)->capacidad)
 #define vector_size(this)			 ((this)->tamaño)
 #define vector_pop_back(this)	 ((this)->tamaño--)
-#define vector_empty(this)		 (vector_size(this) == 0)
-#define vector_max_size(this)	 SIZE_MAX
-#define vector_data(this)			 ((this)->dato)
-#define vector_front(this)		 (vector_data(this)[0])
-#define vector_back(this)			 (vector_data(this)[vector_size(this) - 1])
 #define vector_clear(this)		 ((this)->tamaño = 0)
+#define vector_data(this)			 ((this)->dato)
+#define vector_at(this, index) (index >= (this)->tamaño ? throw() : (this)->dato[index])
+#if __cpp_lib_hardened_vector >= 202502L
+	#define vector_front(this) (vector_empty(this) ? throw() : vector_data(this)[0])
+#else
+	#define vector_front(this) (vector_data(this)[0])
+#endif
+#if __cpp_lib_hardened_vector >= 202502L
+	#define vector_back(this) (vector_empty(this) ? throw() : vector_data(this)[vector_size(this) - 1])
+#else
+	#define vector_back(this) (vector_data(this)[vector_size(this) - 1])
+#endif
+#define vector_empty(this) (vector_size(this) == 0)
+#define vector_shrink_to_fit(this)
+#define vector_swap(this)
+#define vector_erase(this, pos) // este tiene más sobrecargas relevantes
 #define vector_reserve(this, new_cap)                                                                               \
 	{                                                                                                                 \
 		if ((new_cap) > vector_max_size(this)) {                                                                        \
@@ -31,7 +44,7 @@
 		}                                                                                                               \
 		if ((new_cap) > vector_capacity(this)) {                                                                        \
 			auto new_data = (typeof(vector_data(this)))aligned_alloc(alignof(typeof_unqual(vector_data(this))), new_cap); \
-			for (auto i = 0u; i < vector_size(this); i++) {                                                                \
+			for (auto i = 0u; i < vector_size(this); i++) {                                                               \
 				new_data[i] = vector_data(this)[i];                                                                         \
 			}                                                                                                             \
 			free(vector_data(this));                                                                                      \
